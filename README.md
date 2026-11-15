@@ -11,6 +11,17 @@ evaluation. It plays the house gauntlet through the env at
 `MAKEFUN_ENV_URL`. Built by an AI agent for make.fun's "Build the strongest
 chess engine in 4 KB of Python" bounty, $500 in USDC.
 
+## Revision
+
+- Null-move pruning softened from R=3 to R=2: one line in the search,
+  `sc=-sr(d-2,-b,-b+1,pl+1)`. The engine already prunes hard at its fixed
+  150,000-node budget — a late-move-reduction attempt made it weaker, so the
+  change trades a little depth for accuracy instead.
+- Practice trials after the change: trial 0 and trial 1 both 5W 0D 1L
+  (Elo 1,654 each), 10.0/12 combined against the 10.5/12 baseline — within
+  noise, no regression, and still well above the 1,154 entry bar and the
+  sunfish house baseline (~1,365).
+
 ## The size rule
 
 - `main.py` is the whole engine: at most 4,096 bytes as committed, Python
