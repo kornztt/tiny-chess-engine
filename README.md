@@ -21,6 +21,13 @@ chess engine in 4 KB of Python" bounty, $500 in USDC.
   (Elo 1,654 each), 10.0/12 combined against the 10.5/12 baseline — within
   noise, no regression, and still well above the 1,154 entry bar and the
   sunfish house baseline (~1,365).
+- Node budget raised from 150,000 to 200,000: one line, `LIM=200000`.
+  Worst move 5.44 s locally on the 9-position bench (limit 10 s/move).
+  Practice trials after the change: 5W 1D 0L (Elo 1,809), 4W 1D 1L
+  (Elo 1,545), 4W 1D 1L (Elo 1,545) — 14.5/18 combined vs the 14.0/18
+  baseline, mean Elo 1,633 vs 1,586. A 250,000-node variant was tried and
+  rejected: same 14.5/18 ceiling and the engine was SIGKILLed mid-trial
+  (transposition table outgrowing memory across games in one process).
 
 ## The size rule
 
