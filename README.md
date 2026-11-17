@@ -28,6 +28,17 @@ chess engine in 4 KB of Python" bounty, $500 in USDC.
   baseline, mean Elo 1,633 vs 1,586. A 250,000-node variant was tried and
   rejected: same 14.5/18 ceiling and the engine was SIGKILLed mid-trial
   (transposition table outgrowing memory across games in one process).
+- Transposition table cleared between games: one line, `TT.clear()` next
+  to the existing `HIST.clear()` when the game number changes. The final
+  runs 8 games in one process and the table never cleared grows ~0.6-0.7 GB
+  per game (about 4 GB by the end of a 6-game practice trial), so the
+  change trades a little cross-game reuse for a hard memory bound
+  (~0.5 GB). Practice trials after the change: 5W 1D 0L (Elo 1,809),
+  4W 1D 1L (Elo 1,545), 3W 1D 2L (Elo 1,364) — 13.5/18 combined vs the
+  14.5/18 before; trials 0 and 1 were move-for-move identical to the
+  200,000-node version, only trial 2 flipped one game. Packed main.py
+  re-verified with a full trial 0: 5W 1D 0L, Elo 1,809. Worst move 6.09 s
+  locally on the 9-position bench (limit 10 s/move).
 
 ## The size rule
 
