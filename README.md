@@ -39,6 +39,7 @@ chess engine in 4 KB of Python" bounty, $500 in USDC.
   200,000-node version, only trial 2 flipped one game. Packed main.py
   re-verified with a full trial 0: 5W 1D 0L, Elo 1,809. Worst move 6.09 s
   locally on the 9-position bench (limit 10 s/move).
+- Transposition table keyed by `hash((tuple(B),side,castle,ep))` instead of the full board (repetition check still uses the tuple). Packed trial 0: 5W 1D 0L, Elo 1,809, same as TT-clear, but peak RSS 247 MB not ~700 MB, inside the 512 MB limit that killed both submissions (876, 1,099).
 
 ## The size rule
 
